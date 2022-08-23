@@ -107,4 +107,7 @@ tmp_cache
 # python-language-server / Rope
 .ropeproject
 
+# my working files
+*.working
+
 __pycache__/*
