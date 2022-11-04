@@ -11,15 +11,12 @@ class AmbientSensorCalculations:
     """Class full of static methods for calculating sensor values with data provided from the
     Ambient Weather stations
     """
-    _is_raining = False
-    
-    @property
-    def is_raining(self):
-        return self._is_raining
 
-    @is_raining.setter
-    def is_raining(self,val):
-        self._is_raining = val
+    global is_raining
+    is_raining = False
+
+    def __init__(self, is_raining):
+        self.is_raining = is_raining
 
     @staticmethod
     def calculate(entity_key: str, station_values: dict) -> object:
@@ -72,15 +69,16 @@ class AmbientSensorCalculations:
         Returns:
             any: timestamp if there is data to report; None if it's not raining
         """
+        global is_raining
         # Only change the data when raining stops
         #   When the above api is followe, a date is returned every station update
-        if hourly_rain_in > 0.0 and self.is_raining == False:
+        if hourly_rain_in > 0.0 and is_raining == False:
             # record the start of the rain
-            self.is_raining = True
+            is_raining = True
             return datetime.now(timezone.utc)
-        if hourly_rain_in == 0.0 and self.is_raining:
+        if hourly_rain_in == 0.0 and is_raining:
             # record the end of the rain
-            self.is_raining = False
+            is_raining = False
             return datetime.now(timezone.utc)
 
         return None
