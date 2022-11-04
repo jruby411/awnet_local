@@ -2,11 +2,11 @@
 
 ## Overview
 
-This fork was necessary because I tweaked the [AWNET](https://github.com/tlskinneriv/hassio-addons/tree/master/awnet) add-on from tlskinneriv. Only about a week after I went through all of the work to fix it myself (a different way) it gets added to the [awnet_local](https://github.com/tlskinneriv/awnet_local) integration in version 0.2.2!
+This fork was necessary because I tweaked the [AWNET](https://github.com/tlskinneriv/hassio-addons/tree/master/awnet) add-on from tlskinneriv. Only about a week after I went through all of the work to fix it myself (a different way) tlskinneriv adds the calculated sensors to the [awnet_local](https://github.com/tlskinneriv/awnet_local) integration in version 0.2.2!
 
 You can use this integration to take advantage of the new "Custom Server" feature in AWNET available in Firmware [4.2.8](https://ambientweather.com/support) on the WS-2902A, WS-2902B, WS-2902C, WS-2000 And WS-5000. I have tested this using my WS-2902C. It receives service calls from my forked [AWNET](https://gitlab.com/jruby411/awnet) add-on and updates entities associated with the WS device. The implementation of this integration is based largely on the built-in Ambient Weather Station component already available in Home Assistant.
 
-I also added the state_class=SensorStateClass.MEASUREMENT to all of the humidity sensors so the statistics end up in the database.
+I have also added the state_class=SensorStateClass.MEASUREMENT to all of the humidity sensors so the statistics end up in the database. And I have updated other constants, state_class and device_class to match the current homeassistant core ambient_station integration.
 
 ## Installation
 
