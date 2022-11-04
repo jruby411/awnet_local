@@ -15,11 +15,11 @@ class AmbientSensorCalculations:
     
     @property
     def is_raining(self):
-        return type(self)._is_raining
+        return self._is_raining
 
     @is_raining.setter
     def is_raining(self,val):
-        type(self)._is_raining = val
+        self._is_raining = val
 
     @staticmethod
     def calculate(entity_key: str, station_values: dict) -> object:
@@ -39,8 +39,7 @@ class AmbientSensorCalculations:
             return AmbientSensorCalculations.last_rain(float(station_values.get(TYPE_HOURLYRAININ)))
         if entity_key == TYPE_FEELSLIKE:
             return AmbientSensorCalculations.feels_like(float(station_values.get(TYPE_TEMPF)),
-                                                        float(
-                                                            station_values.get(TYPE_WINDSPEEDMPH)),
+                                                        float(station_values.get(TYPE_WINDSPEEDMPH)),
                                                         float(station_values.get(TYPE_HUMIDITY)))
         if entity_key == TYPE_DEWPOINT:
             return AmbientSensorCalculations.dew_point(float(station_values.get(TYPE_TEMPF)),
@@ -73,13 +72,17 @@ class AmbientSensorCalculations:
         Returns:
             any: timestamp if there is data to report; None if it's not raining
         """
-        # cut the chatter. Only change the data when raining stops
-        if hourly_rain_in > 0 and self.is_raining == False:
+        # Only change the data when raining stops
+        #   When the above api is followe, a date is returned every station update
+        if hourly_rain_in > 0.0 and self.is_raining == False:
+            # record the start of the rain
             self.is_raining = True
             return datetime.now(timezone.utc)
-        if hourly_rain_in == 0 and self.is_raining:
+        if hourly_rain_in == 0.0 and self.is_raining:
+            # record the end of the rain
             self.is_raining = False
             return datetime.now(timezone.utc)
+
         return None
 
     @staticmethod
