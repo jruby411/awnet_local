@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog],
 and this project adheres to [Semantic Versioning].
 
+## [0.2.3] - 2022-11-04
+
+### Added
+
+- Variable to keep track of last_rain
+  - This is so the sensor will only record the start and end of a rain cycle instead of at the freqency of the station updates
+
+### Fixed
+
+- Updated the constant types to reflect the updates made to the ambient_station core integration
+
 ## [0.2.2] - 2022-08-15
 
 ### Added
