@@ -12,6 +12,7 @@ from homeassistant.const import (
     LIGHT_LUX,
     PERCENTAGE,
     PRECIPITATION_INCHES,
+    UV_INDEX,
     UnitOfPressure,
     UnitOfTemperature,
     UnitOfVolumetricFlux,
@@ -243,6 +244,7 @@ SENSOR_DESCRIPTIONS = (
         name="24 Hr Rain",
         icon="mdi:water",
         native_unit_of_measurement=PRECIPITATION_INCHES,
+        device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.TOTAL_INCREASING,
     ),
     SensorEntityDescription(
@@ -271,6 +273,7 @@ SENSOR_DESCRIPTIONS = (
         name="Daily Rain",
         icon="mdi:water",
         native_unit_of_measurement=PRECIPITATION_INCHES,
+        device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.TOTAL_INCREASING,
     ),
     SensorEntityDescription(
@@ -285,6 +288,7 @@ SENSOR_DESCRIPTIONS = (
         name="Event Rain",
         icon="mdi:water",
         native_unit_of_measurement=PRECIPITATION_INCHES,
+        device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -390,7 +394,6 @@ SENSOR_DESCRIPTIONS = (
         name="Last Rain",
         icon="mdi:water",
         device_class=SensorDeviceClass.TIMESTAMP,
-        state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key=TYPE_MAXDAILYGUST,
@@ -405,6 +408,7 @@ SENSOR_DESCRIPTIONS = (
         name="Monthly Rain",
         icon="mdi:water",
         native_unit_of_measurement=PRECIPITATION_INCHES,
+        device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -577,7 +581,7 @@ SENSOR_DESCRIPTIONS = (
         key=TYPE_SOLARRADIATION,
         name="Solar Rad",
         native_unit_of_measurement=IRRADIATION_WATTS_PER_SQUARE_METER,
-        device_class=SensorDeviceClass.ILLUMINANCE,
+        device_class=SensorDeviceClass.IRRADIANCE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -676,13 +680,14 @@ SENSOR_DESCRIPTIONS = (
         name="Lifetime Rain",
         icon="mdi:water",
         native_unit_of_measurement=PRECIPITATION_INCHES,
+        device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key=TYPE_UV,
         name="UV Index",
-        native_unit_of_measurement="Index",
-        device_class=SensorDeviceClass.ILLUMINANCE,
+        icon="mdi:weather-sunny",
+        native_unit_of_measurement=UV_INDEX,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -690,6 +695,7 @@ SENSOR_DESCRIPTIONS = (
         name="Weekly Rain",
         icon="mdi:water",
         native_unit_of_measurement=PRECIPITATION_INCHES,
+        device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
@@ -751,6 +757,7 @@ SENSOR_DESCRIPTIONS = (
         name="Yearly Rain",
         icon="mdi:water",
         native_unit_of_measurement=PRECIPITATION_INCHES,
+        device_class=SensorDeviceClass.PRECIPITATION,
         state_class=SensorStateClass.TOTAL_INCREASING,
     ),
 )

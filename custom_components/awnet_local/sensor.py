@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import logging
 
+from datetime import datetime
+
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
@@ -16,6 +18,7 @@ from .const import (
     DOMAIN,
 )
 from .const_types import (
+    TYPE_LASTRAIN,
     CALCULATED_SENSOR_TYPES,
     SENSOR_DESCRIPTIONS
 )
@@ -67,3 +70,7 @@ class AmbientWeatherSensor(AmbientWeatherEntity, SensorEntity):
 
         if raw is not None:
             self._attr_native_value = raw
+            #if self.entity_description.key is TYPE_LASTRAIN:
+            #    self._attr_native_value = datetime.strptime(raw, '%Y-%m-%dT%H:%M:%S%z')
+            #else:
+            #    self._attr_native_value = raw
