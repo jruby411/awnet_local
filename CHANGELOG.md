@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog],
 and this project adheres to [Semantic Versioning].
 
+## [0.2.4] - 2023-01-31
+
+### Updated
+
+- Updated the constant types to reflect the updated made to the ambient_station core integration and try and keep in tune with tlskinneriv as best I can.
+
 ## [0.2.3] - 2022-11-04
 
 ### Added
