@@ -107,7 +107,7 @@ class AmbientStation:
             for attr_type in SUPPORTED_SENSOR_TYPES + SUPPORTED_BINARY_SENSOR_TYPES:
                 self.stations[mac][ATTR_LAST_DATA][attr_type] = None
             if not self._entry_setup_complete:
-                self._hass.config_entries.async_setup_platforms(
+                self._hass.config_entries.async_forward_entry_setups(
                     self._entry, PLATFORMS)
                 self._entry_setup_complete = True
 
