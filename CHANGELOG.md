@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog],
 and this project adheres to [Semantic Versioning].
 
+## [1.0.2] - 2023-03-29
+
+### Added
+
+- Variable to keep track of last_rain
+  - This is so the sensor will only record the start and end of a rain cycle instead of at the freqency of the station updates
+
+### Changed
+
+- Changed measurement to UV_INDEX and icon to mdi:weather-sunny for UV Index Sensor
+- Fixed spelling of Fahrenheit in the comments
+
 ## [1.0.1] - 2023-03-02
 
 ### Added

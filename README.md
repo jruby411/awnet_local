@@ -4,7 +4,11 @@
 
 ## Overview
 
-You can use this integration to take advantage of the new "Custom Server" feature in AWNET available in Firmware [4.2.8](https://ambientweather.com/support) on the WS-2902A, WS-2902B, WS-2902C, WS-2000 And WS-5000. I have tested this using my WS-2902C. It receives service calls from the [AWNET](https://github.com/tlskinneriv/hassio-addons/tree/master/awnet) add-on and updates entities associated with the WS device. The implementation of this integration is based largely on the built-in Ambient Weather Station component already available in Home Assistant.
+This fork was necessary because I tweaked the [AWNET](https://github.com/tlskinneriv/hassio-addons/tree/master/awnet) add-on from tlskinneriv. Only about a week after I went through all of the work to fix it myself (a different way) tlskinneriv adds the calculated sensors to the [awnet_local](https://github.com/tlskinneriv/awnet_local) integration in version 0.2.2!
+
+You can use this integration to take advantage of the new "Custom Server" feature in AWNET available in Firmware [4.2.8](https://ambientweather.com/support) on the WS-2902A, WS-2902B, WS-2902C, WS-2000 And WS-5000. I have tested this using my WS-2902C. It receives service calls from my forked [AWNET](https://gitlab.com/jruby411/awnet) add-on and updates entities associated with the WS device. The implementation of this integration is based largely on the built-in Ambient Weather Station component already available in Home Assistant.
+
+For version 1.0.2, I synced my repo with tlskinneriv and then re-applyed my tweaks. Hopefully it will be easier to keep up with tlskinneriv. Hopefully HA will stop making so many breaking changes.
 
 ## Installation
 
@@ -17,7 +21,7 @@ Configuration is performed via the Home Assistant user interface. You will need 
 - Name: a friendly name for the device to display in Home Assistant
 - MAC: the MAC address for the device
 
-Once configured, setup the accompanying add-on [AWNET](https://github.com/tlskinneriv/hassio-addons/tree/master/awnet) (see the [docs](https://github.com/tlskinneriv/hassio-addons/blob/master/awnet/DOCS.md) for direct instructions).
+Once configured, setup the accompanying add-on [AWNET](https://gitlab.com/jruby411/awnet). This was forked so I could run the docker container in an unsupervised home assistant setup.
 
 ## Service
 

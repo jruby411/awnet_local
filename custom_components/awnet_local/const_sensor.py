@@ -15,6 +15,7 @@ from homeassistant.const import (
     DEGREE,
     LIGHT_LUX,
     PERCENTAGE,
+    UV_INDEX,
     UnitOfLength,
     UnitOfIrradiance,
     UnitOfPrecipitationDepth,
@@ -989,8 +990,8 @@ SENSOR_DESCRIPTIONS = (
     SensorEntityDescription(
         key=TYPE_UV,
         name="UV Index",
-        icon="mdi:sun-wireless",
-        native_unit_of_measurement="Index",
+        icon="mdi:weather-sunny",
+        native_unit_of_measurement=UV_INDEX,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(

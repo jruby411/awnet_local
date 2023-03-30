@@ -2,5 +2,5 @@
     "name": "Ambient Weather Station - Local",
     "content_in_root": false,
     "render_readme": true,
-    "homeassistant": "2023.1.0"
+    "homeassistant": "2023.3.0"
 }

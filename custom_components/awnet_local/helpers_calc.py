@@ -31,6 +31,12 @@ class AmbientSensorCalculations:
     Ambient Weather stations
     """
 
+    global is_raining
+    is_raining = False
+
+    def __init__(self, is_raining):
+        self.is_raining = is_raining
+
     @staticmethod
     def calculate(entity_key: str, station_values: dict) -> object:
         """Calls the correct calculation function and returns the data for it
@@ -98,7 +104,16 @@ class AmbientSensorCalculations:
         Returns:
             any: timestamp if there is data to report; None if it's not raining
         """
-        if hourly_rain_in > 0:
+        global is_raining
+        # Only change the data when raining stops
+        #   When the above api is followed, a date is returned every station update
+        if hourly_rain_in > 0.0 and is_raining == False:
+            # record the start of the rain
+            is_raining = True
+            return datetime.now(timezone.utc)
+        if hourly_rain_in == 0.0 and is_raining:
+            # record the end of the rain
+            is_raining = False
             return datetime.now(timezone.utc)
         return None
 
@@ -184,16 +199,16 @@ class AmbientSensorCalculations:
 
     @staticmethod
     def dew_point(tempf: float, rel_humid_percent: float) -> float:
-        """Calculates the dew point from the temperature in Farenheit and relative humidity using
+        """Calculates the dew point from the temperature in Fahrenheit and relative humidity using
         the Arden Buck equation mentioned here:
         https://ambientweather.com/faqs/question/view/id/1869/
 
         Args:
-            tempf (float): temperature in Farenheit
+            tempf (float): temperature in Fahrenheit
             rel_humid_percent (float): relative humidity percentage
 
         Returns:
-            float: dew point in Farenheit
+            float: dew point in Fahrenheit
         """
         tempc = (tempf - 32) * 5 / 9
         const_b = 18.678
