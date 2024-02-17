@@ -53,6 +53,8 @@ class AmbientWeatherSensor(AmbientWeatherEntity, RestoreSensor):
             _LOGGER.debug("State to restore for %s was %s", self.name, state)
             if not state:
                 return
+            # restore any values needed in calculated sensors, ie last_rain datetime
+            #AmbientSensorCalculations.restore(self.entity_description.key, state.native_value)
             self._attr_native_value = state.native_value
             self._attr_available = True
 

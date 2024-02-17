@@ -6,6 +6,7 @@ perform based on the sensor type.
 """
 
 from datetime import datetime, timezone
+import time
 import math
 
 from .const_sensor import (
@@ -31,11 +32,8 @@ class AmbientSensorCalculations:
     Ambient Weather stations
     """
 
-    global is_raining
     is_raining = False
-
-    def __init__(self, is_raining):
-        self.is_raining = is_raining
+    last_rain_dt = None
 
     @staticmethod
     def calculate(entity_key: str, station_values: dict) -> object:
@@ -104,18 +102,17 @@ class AmbientSensorCalculations:
         Returns:
             any: timestamp if there is data to report; None if it's not raining
         """
-        global is_raining
         # Only change the data when raining stops
         #   When the above api is followed, a date is returned every station update
-        if hourly_rain_in > 0.0 and is_raining == False:
+        if hourly_rain_in > 0.0 and AmbientSensorCalculations.is_raining == False:
             # record the start of the rain
-            is_raining = True
-            return datetime.now(timezone.utc)
-        if hourly_rain_in == 0.0 and is_raining:
+            AmbientSensorCalculations.is_raining = True
+            AmbientSensorCalculations.last_rain_dt = datetime.now(timezone.utc)
+        if hourly_rain_in == 0.0 and AmbientSensorCalculations.is_raining:
             # record the end of the rain
-            is_raining = False
-            return datetime.now(timezone.utc)
-        return None
+            AmbientSensorCalculations.is_raining = False
+            AmbientSensorCalculations.last_rain_dt = datetime.now(timezone.utc)
+        return AmbientSensorCalculations.last_rain_dt
 
     @staticmethod
     def feels_like(tempf: float, wind_mph: float, rel_humid_percent: float) -> float:
@@ -223,6 +220,19 @@ class AmbientSensorCalculations:
         dew_pt_c = (const_c * gamma_t_rh) / (const_b - gamma_t_rh)
         return float(round(dew_pt_c * 9 / 5 + 32, 1))
 
+    @staticmethod
+    def restore(entity_key: str, value: object) -> None:
+        """Calls the correct restore method based on the entity_key
+
+        Args:
+            entity_key (str): key for the entity to restore data to.
+
+        Returns:
+            none:
+        """
+        if entity_key == TYPE_LASTRAIN:
+            AmbientSensorCalculations.last_rain_dt = value
+        return None
 
 class AmbientSensorConversions:
     """Class full of static methods for performing conversions from native units to HA units where
@@ -242,8 +252,15 @@ class AmbientSensorConversions:
         """
         if entity_key == TYPE_LIGHTNING_TIME:
             return AmbientSensorConversions.epoch_to_datetime(int(value))
+        if entity_key == TYPE_LASTRAIN:
+            return AmbientSensorConversions.string_to_datetime(str(value))
         raise NotImplementedError(f"Conversion for {entity_key} is not implemented")
 
     @staticmethod
     def epoch_to_datetime(epoch: int) -> str:
         return datetime.fromtimestamp(epoch, timezone.utc)
+
+    @staticmethod
+    def string_to_datetime(isoTime: str) -> datetime:
+        epochTime = time.mktime(time.strptime(isoTime, '%Y-%m-%dT%H:%M:00.000000%z'))
+        return datetime.fromtimestamp(epochTime, timezone.utc)
